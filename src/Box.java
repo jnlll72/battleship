@@ -1,12 +1,12 @@
 public class Box {
     private int x;
     private int y;
-    private int state;
+    private int etat;
 
     public Box(int x, int y) {
         this.x = x;
         this.y = y;
-        this.state = 0;
+        this.etat = 0;
     }
 
     public int getX() {
@@ -26,11 +26,11 @@ public class Box {
     }
 
     public int getState() {
-        return state;
+        return etat;
     }
 
     public void setState(int state) {
-        this.state = state;
+        this.etat = state;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Box {
         return "Box{" +
                 "x=" + x +
                 ", y=" + y +
-                ", state=" + state +
+                ", state=" + etat +
                 '}';
     }
 }

@@ -2,10 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
-    private Box[][] grid = new Box[10][10];
+    private Box[][] grid;
     private List<Boat> aryBoat = new ArrayList<>();
 
+    private final int W = 10;
+    private final int H = 10;
+
     public Grid() {
+        this.grid = new Box[W][H];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 this.grid[i][j] = new Box(i, j);
@@ -16,6 +20,14 @@ public class Grid {
         aryBoat.add(new Boat(3, -1, -1, 0));
         aryBoat.add(new Boat(4, -1, -1, 0));
         aryBoat.add(new Boat(5, -1, -1, 0));
+    }
+
+    public int getW() {
+        return W;
+    }
+
+    public int getH() {
+        return H;
     }
 
     public Box getBox(int x, int y) {

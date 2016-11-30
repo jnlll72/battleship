@@ -9,10 +9,14 @@ import java.awt.event.ActionListener;
  * Created by julien on 30/11/2016.
  */
 public class GridFrame extends JFrame implements ActionListener {
-    private JButton[][] aryButton = new JButton[10][10];
+    private JButton[][] aryButton;
+    private Grid grid = new Grid();
 
     public GridFrame() throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new MetalLookAndFeel());
+
+        aryButton = new JButton[this.grid.getW()][this.grid.getH()];
+
         this.setTitle("BattleShip");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 800);
@@ -57,13 +61,13 @@ public class GridFrame extends JFrame implements ActionListener {
 
         panC.setPreferredSize(new Dimension(400, 400));
 
-        GridLayout GL = new GridLayout(10, 10);
+        GridLayout GL = new GridLayout(this.grid.getW(), this.grid.getH());
         GL.setHgap(0);
         GL.setVgap(0);
         panC.setLayout(GL);
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < this.grid.getW(); i++) {
+            for (int j = 0; j < this.grid.getH(); j++) {
                 JButton btn = new JButton();
 
                 Border grayBorder;
@@ -111,13 +115,11 @@ public class GridFrame extends JFrame implements ActionListener {
         sPan1.add(panS, BorderLayout.SOUTH);
         sPan1.add(panC, BorderLayout.CENTER);
 
-
         pMain1.add(sPan1, BorderLayout.WEST);
         pMain1.add(sPan2, BorderLayout.CENTER);
 
         main.add(pMain1, BorderLayout.CENTER);
         main.add(pMain2, BorderLayout.SOUTH);
-
 
         this.setContentPane(main);
         this.setVisible(true);
@@ -126,10 +128,11 @@ public class GridFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < this.grid.getW(); i++) {
+            for (int j = 0; j < this.grid.getH(); j++) {
                 if (this.aryButton[i][j].equals(e.getSource())) {
-                    System.out.println("(" + i + "," + j + ")");
+                    int etat = this.grid.getBox(i, j).getState();
+                    System.out.println(etat);
                 }
             }
         }

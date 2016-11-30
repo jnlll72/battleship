@@ -3,7 +3,7 @@ public class Boat {
     private int x;
     private int y;
     private int orientation; // O = horizontale, 1 = verticale
-    private boolean etat; // true = , false =
+    private boolean etat;
 
     public Boat(int longueur, int x, int y, int orientation) {
         this.longueur = longueur;

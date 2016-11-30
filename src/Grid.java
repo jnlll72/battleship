@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Grid {
     private Box[][] grid = new Box[10][10];
-    private List<Boat> listBoat;
+    private List<Boat> aryBoat = new ArrayList<>();
 
     public Grid() {
         for (int i = 0; i < 10; i++) {
@@ -12,30 +11,40 @@ public class Grid {
                 this.grid[i][j] = new Box(i, j);
             }
         }
-        this.listBoat = new ArrayList<>();
+
+        aryBoat.add(new Boat(2, -1, -1, 0));
+        aryBoat.add(new Boat(3, -1, -1, 0));
+        aryBoat.add(new Boat(4, -1, -1, 0));
+        aryBoat.add(new Boat(5, -1, -1, 0));
     }
 
     public Box getBox(int x, int y) {
         return this.grid[x][y];
     }
 
-    public boolean addBoat(Boat b) {
-        if (isPossible(b)) {
-            if (b.getOrientation() == 0) {
-                int x = b.getX();
-                int y = b.getY();
+    public List<Boat> getAryBoat() {
+        return aryBoat;
+    }
 
-                while (y < b.getX() + b.getLongueur()) {
-                    this.grid[x][y].setState(1);
-                    y++;
+    public void setAryBoat(List<Boat> aryBoat) {
+        this.aryBoat = aryBoat;
+    }
+
+    public boolean addBoat(int i, Boat b) {
+        if (isPossible(b)) {
+            this.aryBoat.get(i).setOrientation(b.getOrientation());
+            this.aryBoat.get(i).setX(b.getX());
+            this.aryBoat.get(i).setY(b.getY());
+            int x = b.getX();
+            int y = b.getY();
+            int size = b.getLongueur();
+            if (b.getOrientation() == 0) {
+                for (int j = y; j < y + size; j++) {
+                    this.grid[x][j].setState(1);
                 }
             } else {
-                int x = b.getX();
-                int y = b.getY();
-
-                while (x < b.getX() + b.getLongueur()) {
-                    this.grid[x][y].setState(1);
-                    x++;
+                for (int j = x; j < x + size; j++) {
+                    this.grid[j][y].setState(1);
                 }
             }
             return true;
@@ -45,36 +54,27 @@ public class Grid {
     }
 
     private boolean isPossible(Boat b) {
+        int x = b.getX();
+        int y = b.getY();
+        int size = b.getLongueur();
 
         if (b.getOrientation() == 0) {
-            if (b.getX() + b.getLongueur() < 10) {
-
-                int x = b.getX();
-                int y = b.getY();
-
-                while (y < b.getX() + b.getLongueur()) {
-                    if (this.grid[x][y].getState() == 1) {
-                        return false;
-                    }
-                    y++;
+            for (int i = y; i < y + size; i++) {
+                if (this.grid[x][i].getState() == 1) {
+                    return false;
                 }
             }
+            return true;
+        } else if (b.getOrientation() == 1) {
+            for (int i = x; i < x + size; i++) {
+                if (this.grid[i][y].getState() == 1) {
+                    return false;
+                }
+            }
+            return true;
         } else {
-            if (b.getY() + b.getLongueur() < 10) {
-
-                int x = b.getX();
-                int y = b.getY();
-
-                while (x < b.getY() + b.getLongueur()) {
-                    if (this.grid[x][y].getState() == 1) {
-                        return false;
-                    }
-                    x++;
-                }
-            }
+            return false;
         }
-
-        return true;
     }
 
     @Override
@@ -89,6 +89,15 @@ public class Grid {
             s += "\n";
         }
 
+        return s;
+    }
+
+    public String afficheListBoat() {
+        String s = "";
+        for (int i = 0; i < aryBoat.size(); i++) {
+            Boat boat = aryBoat.get(i);
+            s += i + " => " + boat.toString() + "\n";
+        }
         return s;
     }
 }

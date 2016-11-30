@@ -1,20 +1,19 @@
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Grid grid = new Grid();
 
-//        Boat b1 = new Boat(2, 1, 1, 0);
-//        Boat b2 = new Boat(4, 2, 2, 1);
-//
-//        grid.addBoat(b1);
-//        grid.addBoat(b2);
+        try {
+            GridFrame frame = new GridFrame();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
 
+        /*Grid grid = new Grid();
 
         Scanner sc = new Scanner(System.in);
-
-
         int choix;
         String c;
 
@@ -52,7 +51,7 @@ public class Main {
             System.out.println("NEXT? (Y/N)");
             c = sc.next();
 
-        } while (!Objects.equals(c, "N"));
+        } while (!Objects.equals(c, "N"));*/
 
     }
 }
